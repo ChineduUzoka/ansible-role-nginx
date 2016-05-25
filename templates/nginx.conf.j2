@@ -4,9 +4,15 @@ pid {{ nginx_pid }};
 events { 
   worker_connections {{ nginx_worker_connections }};
 }
+
 http {
   include /etc/nginx/mime.types;
   default_type application/octet-stream;
+
+  {% if nginx_passenger_enable and ansible_os_family == 'Debian' %}
+  passenger_root {{ nginx_passenger_root }}; 
+  passenger_ruby /usr/bin/passenger_free_ruby;
+  {% endif %}
 
   access_log  {{nginx_log_dir}}/access.log {{nginx_access_log_format}};
   error_log  {{nginx_log_dir}}/error.log;

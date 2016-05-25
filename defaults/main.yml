@@ -27,3 +27,5 @@ nginx_ancillary_packages:
   RedHat:
     - libselinux-python
 
+# Rails/Rack support
+nginx_passenger_enable: false
