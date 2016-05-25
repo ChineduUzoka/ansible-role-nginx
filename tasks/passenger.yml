@@ -1,0 +1,18 @@
+---
+- name: Add the OS specific varibles
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Add APT key
+  apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=561F9B9CAC40B2F7
+
+- name: Add APT repository
+  apt_repository: repo="{{nginx_passenger_repo}}" update_cache=yes
+  when: nginx_passenger_repo
+
+- name: Install Passenger package
+  apt: name="passenger" state=present force=yes
+
+- name: Install additional packages
+  apt: name={{item}}
+  with_items: "{{nginx_passenger_additional_packages}}"
+

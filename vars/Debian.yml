@@ -1,0 +1,6 @@
+---
+nginx_passenger_repo: "{% if ansible_distribution_release | match('trusty|lucid') %} deb https://oss-binaries.phusionpassenger.com/apt/passenger {{ ansible_distribution_release }} main {% else %} False {% endif %}"
+nginx_passenger_additional_packages: 
+  - nginx-extras
+
+nginx_passenger_root: /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini 
