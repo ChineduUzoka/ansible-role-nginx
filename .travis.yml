@@ -19,8 +19,8 @@ services:
  
 before_install:
   - sudo apt-get update
-  - sudo docker pull $(distribution):$(version)
-  - sudo docker build --rm=true --file=tests/Dockerfile.$(distribution) --tag=${distribution}:ansible tests
+  - sudo docker pull ${distribution}:${version}
+  - sudo docker build --rm=true --file=tests/Dockerfile.${distribution} --tag=${distribution}:ansible tests
 
 scripts:
   - sudo docker run --detach --volume="${PWD}":/etc/ansible/roles/ansible-role-nginx:ro ${run_opts} ${distribution}:ansible "${init}" > "${container_id}"
@@ -41,4 +41,3 @@ scripts:
 
 notifications:
   email: false
-
