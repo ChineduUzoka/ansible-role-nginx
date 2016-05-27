@@ -1,24 +1,7 @@
 ---
-- name: Add the OS specific varibles
-  include_vars: "{{ ansible_os_family }}.yml"
-
-- include: passenger_RedHat.yml
+# Phusion yum repo does not have passenger packages available as of 17/06/2016
+- include: passenger-RedHat.yml
   when: ansible_os_family == 'RedHat'
 
-- include: passenger_Debian.yml
+- include: passenger-Debian.yml
   when: ansible_os_family == 'Debian'
-
-- name: Add APT key
-  apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=561F9B9CAC40B2F7
-
-- name: Add APT repository
-  apt_repository: repo="{{nginx_passenger_repo}}" update_cache=yes
-  when: nginx_passenger_repo
-
-- name: Install Passenger package
-  apt: name="passenger" state=present force=yes
-
-- name: Install additional packages
-  apt: name={{item}}
-  with_items: "{{nginx_passenger_additional_packages}}"
-

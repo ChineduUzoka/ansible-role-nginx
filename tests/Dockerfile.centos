@@ -3,15 +3,14 @@ FROM centos:6
 MAINTAINER Chinedu Uzoka <cuzoka@mgage.com>
 
 # Do not install package documentation
-ENV ANSIBLE_VERSION 2.0.0.2
 RUN yum -y install epel-release \
-    && yum -y install python-pip \
-       libffi-devel \
-       openssl-devel \ 
-       python-devel \
-       gcc
+    && yum -y install ansible
 
-RUN pip install ansible==${ANSIBLE_VERSION}
+RUN echo -e '[test]\nlocalhost ansible_connection=local ansible_python_interpreter=python\n' >  /etc/ansible/hosts 
+
+COPY ./ansible.cfg /etc/ansible/ansible.cfg
 
 ENV ANSIBLE_ROLE_PATH /etc/ansible/roles
+
+RUN yum clean all
 

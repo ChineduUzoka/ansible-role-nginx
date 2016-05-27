@@ -2,12 +2,6 @@
 - name: Add the OS specific varibles
   include_vars: "{{ ansible_os_family }}.yml"
 
-- include: passenger_RedHat.yml
-  when: ansible_os_family == 'RedHat'
-
-- include: passenger_Debian.yml
-  when: ansible_os_family == 'Debian'
-
 - name: Add APT key
   apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=561F9B9CAC40B2F7
 
@@ -16,9 +10,8 @@
   when: nginx_passenger_repo
 
 - name: Install Passenger package
-  apt: name="passenger" state=present force=yes
+  apt: name="passenger" state=present force=yes update_cache=yes
 
 - name: Install additional packages
-  apt: name={{item}}
+  apt: name="{{item}}"
   with_items: "{{nginx_passenger_additional_packages}}"
-

@@ -16,6 +16,4 @@
     module: "{{ansible_pkg_mgr}}"
     name: nginx
     state: present
-
-- include: passenger-RedHat.yml
-  when: nginx_passenger_enable
+  when: nginx_passenger_enable == True and ansible_os_family == 'RedHat'

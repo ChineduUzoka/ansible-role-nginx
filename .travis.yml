@@ -1,5 +1,7 @@
-language: generic
-
+language: python
+python:
+  - 2.7
+ 
 sudo: required
 env: 
   - >
@@ -17,20 +19,22 @@ services:
   - docker
  
 before_install:
-#  - sudo apt-get update
+  - sudo apt-get update
   - sudo docker pull ${distribution}:${version}
   - sudo docker build --rm=true --file=tests/Dockerfile.${distribution} --tag=${distribution}:ansible tests
                                        
-scripts:
+install: true
+
+script:
   - sudo docker run --detach --volume="${PWD}":/etc/ansible/roles/ansible-role-nginx:ro ${run_opts} ${distribution}:ansible "${init}" > "${container_id}"
 
     # Syntax check
-  - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/ansible-role-nginx/tests/test.yml --syntax-check
+  - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook -vvv -e "target=test" /etc/ansible/roles/ansible-role-nginx/tests/tests.yml --syntax-check
     # Test role
-  - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/ansible-role-nginx/tests/test.yml
+  - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook -vvv -e "target=test" /etc/ansible/roles/ansible-role-nginx/tests/tests.yml
     # Idempotence test
   - >
-    sudo docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/ansible-role-nginx/tests/test.yml
+    sudo docker exec "$(cat ${container_id})" ansible-playbook -vvv -e "target=test" /etc/ansible/roles/ansible-role-nginx/tests/tests.yml 
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)

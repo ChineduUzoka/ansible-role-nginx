@@ -9,6 +9,3 @@
     state: present
     update_cache: yes
   notify: restart nginx
-
-- include: passenger-Debian.yml
-  when: nginx_passenger_enable

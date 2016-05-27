@@ -14,6 +14,11 @@ http {
   passenger_ruby /usr/bin/passenger_free_ruby;
   {% endif %}
 
+  {% if nginx_passenger_enable and ansible_os_family == 'RedHat' %}
+  passenger_root {{ nginx_passenger_root }}; 
+  passenger_ruby /usr/bin/passenger;
+  {% endif %}
+
   access_log  {{nginx_log_dir}}/access.log {{nginx_access_log_format}};
   error_log  {{nginx_log_dir}}/error.log;
 

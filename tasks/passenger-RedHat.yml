@@ -8,11 +8,17 @@
     - epel-release
     - yum-utils
    
+- name: Install Passenger Repo
+  get_url:
+    url: "{{nginx_passenger_repo}}"  
+    dest: /etc/yum.repos.d/passenger.repo
+
 - name: Install additional packages
-  apt: name={{item}}
+  yum: name={{item}}
   with_items: "{{nginx_passenger_additional_packages}}"
 
 - name: Add Yum Passenger repository and package
-  yum: conf_file="{{nginx_passenger_repo}}" name="passenger" 
+  yum: update_cache=yes name="passenger,nginx"
+  notify: restart nginx
 
 
