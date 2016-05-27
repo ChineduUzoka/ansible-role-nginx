@@ -1,0 +1,17 @@
+FROM centos:6
+
+MAINTAINER Chinedu Uzoka <cuzoka@mgage.com>
+
+# Do not install package documentation
+ARG ANSIBLE_VERSION=2.0.0.2
+RUN yum -y install epel-release \
+    && yum -y install python-pip \
+       libffi-devel \
+       openssl-devel \ 
+       python-devel \
+       gcc
+
+RUN pip install ansible==$(ANSIBLE_VERSION)
+
+ENV ANSIBLE_ROLE_PATH /etc/ansible/roles
+
