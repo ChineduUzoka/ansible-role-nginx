@@ -2,6 +2,7 @@
 - hosts: test
   sudo: true
   vars:
+    nginx_passenger_enable: true
     nginx_sites:
       - name: testsite
         template: site.j2

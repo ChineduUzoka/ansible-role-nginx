@@ -1,0 +1,9 @@
+---
+nginx_epel_release: 
+  RedHat: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+  CentOS: http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+nginx_epel_repo: nginx_epel_release[{{ansible_os_distribution}}] 
+nginx_passenger_repo: "https://oss-binaries.phusionpassenger.com/yum/definitions/el-passenger.repo"
+nginx_passenger_additional_packages: 
+  - pygpgme 
+

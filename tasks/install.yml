@@ -17,3 +17,5 @@
     name: nginx
     state: present
 
+- include: passenger-RedHat.yml
+  when: nginx_passenger_enable

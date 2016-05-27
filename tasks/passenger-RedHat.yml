@@ -1,0 +1,18 @@
+---
+- name: Add the OS specific varibles
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Add Yum EPEL repository and package
+  yum: conf_file="{{nginx_epel_repo}}" name="{{item}}" enablerepo=epel
+  with_items:
+    - epel-release
+    - yum-utils
+   
+- name: Install additional packages
+  apt: name={{item}}
+  with_items: "{{nginx_passenger_additional_packages}}"
+
+- name: Add Yum Passenger repository and package
+  yum: conf_file="{{nginx_passenger_repo}}" name="passenger" 
+
+
