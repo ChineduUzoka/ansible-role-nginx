@@ -7,7 +7,7 @@ ENV ANSIBLE_VERSION 2.0.0.2
 RUN apt-get update && apt-get install -y software-properties-common \
     && apt-add-repository -y ppa:ansible/ansible 
                                                                                                                                                                                                                   
-RUN apt-get update && apt-get install -y ansible=${ANSIBLE_VERSION}*                                                                                                                                              
+RUN apt-get update && apt-get install -y ansible=${ANSIBLE_VERSION}
                                                                                                                                                                                                                   
 ENV ANSIBLE_ROLE_PATH /etc/ansible/roles                                                                                                                                                                          
                                                                                                                                                                                                                   
