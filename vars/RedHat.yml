@@ -6,5 +6,4 @@ nginx_epel_repo: "nginx_epel_release[{{ansible_distribution}}]"
 nginx_passenger_repo: "https://oss-binaries.phusionpassenger.com/yum/definitions/el-passenger.repo"
 nginx_passenger_additional_packages: 
   - pygpgme 
-  - nginx
 nginx_passenger_root: /usr/lib/ruby/1.8/phusion_passenger/locations.ini

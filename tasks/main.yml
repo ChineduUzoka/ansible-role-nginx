@@ -7,6 +7,4 @@
   when: nginx_enabled == true
 - include: sites.yml
   when: nginx_enabled == true
-- include: passenger.yml
-  when: nginx_passenger_enable
 - include: service.yml

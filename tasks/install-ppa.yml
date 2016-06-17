@@ -9,3 +9,6 @@
     state: present
     update_cache: yes
   notify: restart nginx
+
+- include: passenger.yml
+  when: nginx_passenger_enable
