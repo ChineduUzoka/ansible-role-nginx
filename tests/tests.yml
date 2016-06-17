@@ -29,10 +29,10 @@
  
     - name: Fetch 404
       uri:
-        url: http://{{ ansible_default_ipv4.address }}:81/404
+        url: http://{{ ansible_default_ipv4.address | default('127.0.0.1')}}:81/404
         status_code: 404
  
     - name: Fetch 204
       uri:
-        url: http://{{ ansible_default_ipv4.address }}:81/other
+        url: http://{{ ansible_default_ipv4.address |default('127.0.0.1')}}:81/other
         status_code: 204
