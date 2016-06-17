@@ -18,7 +18,7 @@
   with_items: "{{nginx_passenger_additional_packages}}"
 
 - name: Add Yum Passenger repository and package
-  yum: update_cache=yes name="passenger,nginx"
+  yum:  update_cache=yes name="passenger,nginx"
   notify: restart nginx
 
 

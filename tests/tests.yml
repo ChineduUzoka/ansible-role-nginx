@@ -1,7 +1,6 @@
 ---
 - hosts: "{{ target }}"
   sudo: true
-  gather_facts: true
   vars:
     nginx_passenger_enable: true
     nginx_sites:
@@ -16,7 +15,7 @@
   post_tasks:
     - name: Fetch Up Page
       uri:
-        url: http://{{ ansible_default_ipv4.address }}:81/up
+        url: http://{{ ansible_default_ipv4.address | default('127.0.0.1')}}:81/up
         status_code: 200
       register: isup
       until: isup|success

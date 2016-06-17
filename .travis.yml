@@ -33,7 +33,7 @@ script:
     # Test role
   - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook -vvv -e "target=test" /etc/ansible/roles/ansible-role-nginx/tests/tests.yml
     # Idempotence test
-  - >
+  - |
     sudo docker exec "$(cat ${container_id})" ansible-playbook -vvv -e "target=test" /etc/ansible/roles/ansible-role-nginx/tests/tests.yml \
     | grep -q 'changed=0.*failed=0' \
     && (echo 'Idempotence test: pass' && exit 0) \
